@@ -24,7 +24,22 @@
 
   <div class="card">
     <p id="input-error" class="error" role="alert" hidden></p>
-    <canvas id="curve" role="img" aria-label="Standard normal distribution with the selected central area shaded">Your browser must support canvas to display the bell curve. Numerical results are below.</canvas>
+    <div class="charts">
+      <section class="curve-panel" aria-labelledby="curve-title">
+        <h2 id="curve-title">Normal distribution</h2>
+        <canvas id="curve" role="img" aria-label="Standard normal distribution with the selected central area shaded">Your browser must support canvas to display the bell curve. Numerical results are below.</canvas>
+      </section>
+      <section class="pie-panel" aria-labelledby="pie-title">
+        <h2 id="pie-title">Part of the whole</h2>
+        <div id="pie" class="pie" role="img" aria-label="75.00% selected, 25.00% remaining"></div>
+        <p class="pie-value" id="pie-percent">75.00%</p>
+        <div class="pie-legend">
+          <span><i class="dot selected-dot"></i>Selected <b id="pie-selected">75.00%</b></span>
+          <span><i class="dot remaining-dot"></i>Remaining <b id="pie-remaining">25.00%</b></span>
+        </div>
+        <p class="pie-note">The purple slice equals the shaded central area under the bell curve.</p>
+      </section>
+    </div>
     <div class="legend">
       <span><i class="dot" style="background:#6d5dfc"></i>Your central percentage</span>
       <span><i class="dot" style="background:#35a36f"></i>±1σ = 68.3%</span>

@@ -18,6 +18,7 @@ function update(){
     document.getElementById('fraction').textContent='Check your inputs';
     canvas.setAttribute('aria-label','Standard normal distribution. Enter valid inputs to shade a central area.');
     draw(NaN,NaN);
+    updatePie(NaN);
     return;
   }
   const pct=a/b*100;
@@ -32,6 +33,19 @@ function update(){
   document.getElementById('closest').textContent=refs[0].s;
   canvas.setAttribute('aria-label',`${pct.toFixed(2)}% central area of the standard normal distribution; boundary ${Number.isFinite(z)?z.toFixed(3):'infinite'} standard deviations on either side of the mean.`);
   draw(z,pct);
+  updatePie(pct);
+}
+function updatePie(pct){
+  const pie=document.getElementById('pie');
+  const valid=Number.isFinite(pct);
+  const selected=valid?pct.toFixed(2)+'%':'—';
+  const remaining=valid?(100-pct).toFixed(2)+'%':'—';
+  pie.style.setProperty('--percentage',valid?pct+'%':'0%');
+  pie.classList.toggle('is-invalid',!valid);
+  pie.setAttribute('aria-label',valid?`${selected} selected, ${remaining} remaining`:'Pie chart unavailable. Enter valid inputs.');
+  document.getElementById('pie-percent').textContent=selected;
+  document.getElementById('pie-selected').textContent=selected;
+  document.getElementById('pie-remaining').textContent=remaining;
 }
 function draw(z,pct){
   const dpr=window.devicePixelRatio||1, rect=canvas.getBoundingClientRect();

@@ -12,6 +12,19 @@
   .result .big { font-size:34px; font-weight:800; }
   .result .small { color:#666; }
   canvas { width:100%; height:390px; display:block; }
+  .charts { display:grid; grid-template-columns:minmax(0, 1fr) 260px; gap:24px; }
+  .charts h2 { font-size:17px; margin:0 0 16px; }
+  .curve-panel { min-width:0; }
+  .pie-panel { border-left:1px solid #e2e2e2; padding-left:24px; text-align:center; }
+  .pie { --percentage:75%; width:100%; max-width:210px; aspect-ratio:1; margin:24px auto 16px; border-radius:50%; background:conic-gradient(#6d5dfc 0% var(--percentage), #e2e2e9 var(--percentage) 100%); }
+  .pie.is-invalid { background:#e2e2e9; }
+  .pie-value { font-size:28px; font-weight:800; margin:0 0 14px; }
+  .pie-legend { display:grid; gap:8px; font-size:13px; text-align:left; }
+  .pie-legend b { float:right; margin-left:10px; }
+  .selected-dot { background:#6d5dfc; }
+  .remaining-dot { background:#e2e2e9; }
+  .pie-note { font-size:13px; line-height:1.5; color:#666; }
+  @media(max-width:800px) { .charts { grid-template-columns:1fr; } .pie-panel { border-left:0; border-top:1px solid #e2e2e2; padding:20px 0 0; } .pie-legend,.pie-note { max-width:280px; margin-left:auto; margin-right:auto; } }
   .stats { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:12px; }
   .stat { border:1px solid #e2e2e2; border-radius:12px; padding:13px; }
   .stat b { display:block; font-size:19px; margin-top:4px; }
