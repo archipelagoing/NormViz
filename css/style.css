@@ -19,7 +19,7 @@
   .charts h2 { font-size:17px; margin:0 0 16px; }
   .curve-panel { min-width:0; }
   .pie-panel { border-left:1px solid #e2e2e2; padding-left:24px; text-align:center; }
-  .pie { --percentage:75%; position:relative; box-sizing:border-box; width:calc(100% - 64px); max-width:280px; aspect-ratio:1; margin:40px auto; border:1px solid #a3a3ad; border-radius:50%; background:conic-gradient(#6d5dfc 0% var(--percentage), #e2e2e9 var(--percentage) 100%); }
+  .pie { --percentage:75%; position:relative; box-sizing:border-box; width:calc(100% - 64px); max-width:280px; aspect-ratio:1; margin:40px auto; border:1px solid #a3a3ad; border-radius:50%; background:conic-gradient(from var(--hour-angle,24.545454545deg), #6d5dfc 0% var(--percentage), #e2e2e9 var(--percentage) 100%); }
   .pie::before { content:""; position:absolute; inset:-10px; border-radius:50%; background:repeating-conic-gradient(from -.5deg, #777783 0deg 1deg, transparent 1deg 30deg); mask:radial-gradient(circle closest-side,transparent calc(100% - 6px),#000 calc(100% - 6px)); pointer-events:none; }
   .clock-number { position:absolute; z-index:2; color:#555560; font-size:clamp(10px,1.5vw,14px); font-weight:400; line-height:1; transform:translate(-50%,-50%); }
   .clock-twelve { left:50%; top:-23px; }
@@ -28,11 +28,13 @@
   .clock-nine { left:-23px; top:50%; }
   .clock-hand { position:absolute; z-index:3; left:50%; bottom:50%; filter:drop-shadow(1px 0 0 #fff) drop-shadow(-1px 0 0 #fff) drop-shadow(0 1px 0 #fff) drop-shadow(0 -1px 0 #fff); transform-origin:50% 100%; pointer-events:none; }
   .clock-hand::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,#292934 0%,#565663 48%,#292934 100%); clip-path:polygon(50% 0,100% 18%,80% 100%,20% 100%,0 18%); }
-  .hour-hand { width:4px; height:28%; margin-left:-2px; }
-  .minute-hand { width:2px; height:39%; margin-left:-1px; transform:rotate(var(--hand-angle,270deg)); }
+  .hour-hand { width:4px; height:28%; margin-left:-2px; transform:rotate(var(--hour-angle,24.545454545deg)); }
+  .minute-hand { width:2px; height:39%; margin-left:-1px; transform:rotate(var(--hand-angle,294.545454545deg)); }
+  .clock-readout { color:#555560; font-size:13px; margin:0 0 18px; }
+  .clock-readout strong { display:block; font-size:23px; font-variant-numeric:tabular-nums; color:#292934; margin-top:4px; }
   .clock-pin { position:absolute; z-index:4; left:50%; top:50%; box-sizing:border-box; width:5px; height:5px; border-radius:50%; background:#292934; border:1px solid #fff; transform:translate(-50%,-50%); }
   .pie.is-invalid .clock-hand,.pie.is-invalid .clock-pin { display:none; }
-  .pie-divider { position:absolute; z-index:1; left:50%; bottom:50%; height:50%; width:0; border-left:2px dotted #9693a3; transform-origin:0 100%; transform:rotate(var(--tail-angle,315deg)); pointer-events:none; }
+  .pie-divider { position:absolute; z-index:1; left:50%; bottom:50%; height:50%; width:0; border-left:2px dotted #9693a3; transform-origin:0 100%; transform:rotate(var(--tail-angle,339.545454545deg)); pointer-events:none; }
   .pie.is-empty .pie-divider { bottom:0; height:100%; transform-origin:0 50%; }
   .pie.is-full .pie-divider,.pie.is-invalid .pie-divider { display:none; }
   .pie.is-invalid { background:#e2e2e9; }

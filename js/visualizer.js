@@ -65,12 +65,21 @@ function updatePie(pct){
   const selected=valid?pct.toFixed(2)+'%':'—';
   const remaining=valid?(100-pct).toFixed(2)+'%':'—';
   pie.style.setProperty('--percentage',valid?pct+'%':'0%');
-  pie.style.setProperty('--hand-angle',(valid?pct*3.6:0)+'deg');
-  pie.style.setProperty('--tail-angle',(valid?180+pct*1.8:0)+'deg');
+  // The minute hand gains 5.5 degrees per minute on the hour hand.
+  // Solve for a clockwise gap of pct / 100 full turns without rounding angles.
+  const sweep=valid?pct*3.6:0;
+  const elapsedMinutes=sweep/5.5;
+  const hourAngle=elapsedMinutes*.5;
+  const seconds=Math.round(elapsedMinutes*60);
+  const clockTime=valid?`${Math.floor(seconds/3600)||12}:${String(Math.floor(seconds/60)%60).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`:'—';
+  document.getElementById('clock-time').textContent=clockTime;
+  pie.style.setProperty('--hand-angle',(hourAngle+sweep)+'deg');
+  pie.style.setProperty('--hour-angle',hourAngle+'deg');
+  pie.style.setProperty('--tail-angle',(hourAngle+sweep+(360-sweep)/2)+'deg');
   pie.classList.toggle('is-empty',valid&&pct===0);
   pie.classList.toggle('is-full',valid&&pct===100);
   pie.classList.toggle('is-invalid',!valid);
-  pie.setAttribute('aria-label',valid?`${selected} selected, ${remaining} remaining, split into two tails of ${((100-pct)/2).toFixed(2)}% each`:'Pie chart unavailable. Enter valid inputs.');
+  pie.setAttribute('aria-label',valid?`${selected} selected, ${remaining} remaining, split into two tails of ${((100-pct)/2).toFixed(2)}% each. Clock equivalent ${clockTime}, with the selected area measured clockwise from the hour hand to the minute hand.`:'Pie chart unavailable. Enter valid inputs.');
   document.getElementById('pie-percent').textContent=selected;
   document.getElementById('pie-selected').textContent=selected;
   document.getElementById('pie-remaining').textContent=remaining;
