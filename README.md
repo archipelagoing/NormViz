@@ -13,7 +13,7 @@ Explore the same percentage as a shaded bell curve and a pie chart. Enter **75 o
 
 ## What you can explore
 
-- **Two connected charts:** a bell curve and a pie chart styled as a sewing button, both updating as you type.
+- **Two connected charts:** a bell curve and a pie chart styled as a clock, with hands marking the selected share, both updating as you type.
 - **A measuring-tape scale:** see distance from the average in standard-deviation units.
 - **Your results explained:** central percentage, boundaries, percentage in each tail, and the closest 68–95–99.7 reference.
 - **A visual area bar:** connect the purple middle and the two tails to shares of the whole.

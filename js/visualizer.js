@@ -65,8 +65,12 @@ function updatePie(pct){
   const selected=valid?pct.toFixed(2)+'%':'—';
   const remaining=valid?(100-pct).toFixed(2)+'%':'—';
   pie.style.setProperty('--percentage',valid?pct+'%':'0%');
+  pie.style.setProperty('--hand-angle',(valid?pct*3.6:0)+'deg');
+  pie.style.setProperty('--tail-angle',(valid?180+pct*1.8:0)+'deg');
+  pie.classList.toggle('is-empty',valid&&pct===0);
+  pie.classList.toggle('is-full',valid&&pct===100);
   pie.classList.toggle('is-invalid',!valid);
-  pie.setAttribute('aria-label',valid?`${selected} selected, ${remaining} remaining`:'Pie chart unavailable. Enter valid inputs.');
+  pie.setAttribute('aria-label',valid?`${selected} selected, ${remaining} remaining, split into two tails of ${((100-pct)/2).toFixed(2)}% each`:'Pie chart unavailable. Enter valid inputs.');
   document.getElementById('pie-percent').textContent=selected;
   document.getElementById('pie-selected').textContent=selected;
   document.getElementById('pie-remaining').textContent=remaining;

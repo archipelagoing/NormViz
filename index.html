@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&amp;display=swap">
-<link rel="stylesheet" href="css/style.css?v=manrope-1">
+<link rel="stylesheet" href="css/style.css?v=clock-pie-4">
 </head>
 <body>
 <div class="wrap">
@@ -35,19 +35,23 @@
         <canvas id="curve" role="img" aria-label="Standard normal distribution with the selected central area shaded">Your browser must support canvas to display the bell curve. Numerical results are below.</canvas>
       </section>
       <section class="pie-panel" aria-labelledby="pie-title">
-        <h2 id="pie-title">Part of the whole</h2>
+        <h2 id="pie-title">Pie Chart (part of the whole)</h2>
         <div id="pie" class="pie" role="img" aria-label="75.00% selected, 25.00% remaining">
-          <span class="button-hole" aria-hidden="true"></span>
-          <span class="button-hole" aria-hidden="true"></span>
-          <span class="button-hole" aria-hidden="true"></span>
-          <span class="button-hole" aria-hidden="true"></span>
+          <span class="clock-number clock-twelve" aria-hidden="true">12</span>
+          <span class="clock-number clock-three" aria-hidden="true">3</span>
+          <span class="clock-number clock-six" aria-hidden="true">6</span>
+          <span class="clock-number clock-nine" aria-hidden="true">9</span>
+          <span class="clock-hand hour-hand" aria-hidden="true"></span>
+          <span class="clock-hand minute-hand" aria-hidden="true"></span>
+          <span class="clock-pin" aria-hidden="true"></span>
+          <span class="pie-divider" aria-hidden="true"></span>
         </div>
         <p class="pie-value" id="pie-percent">75.00%</p>
         <div class="pie-legend">
           <span><i class="dot selected-dot"></i>Selected <b id="pie-selected">75.00%</b></span>
           <span><i class="dot remaining-dot"></i>Remaining <b id="pie-remaining">25.00%</b></span>
         </div>
-        <p class="pie-note">The purple slice equals the shaded central area under the bell curve.</p>
+        <p class="pie-note">Read clockwise from the short hand at 12 to the long hand: the purple slice equals the shaded central area under the bell curve. The hands show a share, rather than the current time. The dotted line divides the gray remainder into two equal tails.</p>
       </section>
     </div>
     </div>
@@ -167,6 +171,6 @@
 </div>
 
 <script src="js/statistics.js?v=guide-2" defer></script>
-<script src="js/visualizer.js?v=lato-1" defer></script>
+<script src="js/visualizer.js?v=clock-pie-1" defer></script>
 </body>
 </html>
