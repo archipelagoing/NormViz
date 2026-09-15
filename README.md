@@ -15,8 +15,10 @@ Explore the same percentage as a shaded bell curve and a pie chart. Enter **75 o
 
 - **Two connected charts:** a bell curve and a pie chart styled as a clock, with hands marking the selected share, both updating as you type.
 - **A measuring-tape scale:** see distance from the average in standard-deviation units.
-- **Your results explained:** central percentage, boundaries, percentage in each tail, and the closest 68–95–99.7 reference.
-- **A visual area bar:** connect the purple middle and the two tails to shares of the whole.
+- **Your results explained:** central percentage, boundaries, percentage in each tail, and a plain-language description of distance from the average.
+- **Linked regions:** hover or tap the bell, pie, or area bar to highlight the same middle area or tail in all three. Keyboard-accessible buttons provide the same controls.
+- **Grade-cutoff examples:** explore A, A−, B+, B, B−, C+, C, C−, D, and F with one click. Buttons show the grade ranges and select their lower cutoff; F selects 59.99% as an example below 60%. These select central areas, not class rankings or percentile grades.
+- **An optional walking-time scale:** adjust the average and standard deviation to see the selected range in minutes.
 - **Plain-language guides:** learn what the curve’s shape tells you, how it complements a pie chart, and how to interpret percentages in daily life.
 
 ## How to use it
@@ -25,11 +27,11 @@ Explore the same percentage as a shaded bell curve and a pie chart. Enter **75 o
 2. Compare the purple share of the pie with the purple area under the bell curve.
 3. Read the explanation below the charts, then change the fraction to see how the boundaries move.
 
-For **75 / 100**, the central area is **75%**, its boundaries are approximately **−1.150σ and +1.150σ**, and each tail contains **12.5%**. Here, σ means one standard deviation—a measure of spread around the average.
+For **75 / 100**, the central area is **75%**, its boundaries are approximately **−1.150σ and +1.150σ**, and each tail contains **12.5%**. Here, σ means one standard deviation, a measure of spread around the average.
 
 Try **68 / 100**, **95 / 100**, and **99.7 / 100**. Notice how including more of the distribution moves the boundaries farther from the average.
 
-The charts and three-column guides stay side by side. On very narrow screens, scroll horizontally within those sections.
+The charts and guides sit side by side on larger screens and stack vertically on phones.
 
 ## What the percentage means
 
@@ -37,7 +39,7 @@ NormViz maps your fraction to a **symmetric central area of a standard normal di
 
 Applying this model to real measurements requires knowing their average and spread, and checking whether a bell curve is a reasonable fit.
 
-At **0%**, the interval has zero width. At **100%**, its boundaries are infinite. The chart displays only **−3.6σ to +3.6σ**, so larger intervals extend beyond the visible range.
+At **0%**, the interval has zero width. At **100%**, its boundaries are infinite. The chart displays only **−3.6σ to +3.6σ**. Arrows and a note indicate when selected boundaries extend beyond the visible range.
 
 ## Run locally
 

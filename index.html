@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&amp;display=swap">
-<link rel="stylesheet" href="css/style.css?v=purple-text-1">
+<link rel="stylesheet" href="css/style.css?v=coverage-explorer-3">
 </head>
 <body>
 <div class="wrap">
@@ -24,15 +24,41 @@
         <div class="small" id="fraction">75 / 100</div>
       </div>
     </div>
+    <div class="percentage-controls">
+      <h2 id="grade-cutoffs-title">Explore grade cutoffs</h2>
+      <div class="presets grade-presets" role="group" aria-labelledby="grade-cutoffs-title">
+        <button type="button" data-percentage="93" aria-pressed="false"><strong>A</strong><span>93–100%</span></button>
+        <button type="button" data-percentage="90" aria-pressed="false"><strong>A−</strong><span>90–92.99%</span></button>
+        <button type="button" data-percentage="87" aria-pressed="false"><strong>B+</strong><span>87–89.99%</span></button>
+        <button type="button" data-percentage="83" aria-pressed="false"><strong>B</strong><span>83–86.99%</span></button>
+        <button type="button" data-percentage="80" aria-pressed="false"><strong>B−</strong><span>80–82.99%</span></button>
+        <button type="button" data-percentage="77" aria-pressed="false"><strong>C+</strong><span>77–79.99%</span></button>
+        <button type="button" data-percentage="73" aria-pressed="false"><strong>C</strong><span>73–76.99%</span></button>
+        <button type="button" data-percentage="70" aria-pressed="false"><strong>C−</strong><span>70–72.99%</span></button>
+        <button type="button" data-percentage="60" aria-pressed="false"><strong>D</strong><span>60–69.99%</span></button>
+        <button type="button" data-percentage="59.99" aria-pressed="false"><strong>F</strong><span>&lt;60%</span></button>
+      </div>
+      <p class="control-note">Choose a grade to explore its lower cutoff out of 100; F uses 59.99% as an example below 60%. These ranges describe this grading scale; other schools may differ. The bell shows the corresponding middle area, not your grade’s percentile or class ranking.</p>
+    </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="chart-card" tabindex="-1">
     <p id="input-error" class="error" role="alert" hidden></p>
-    <div class="charts-scroll" tabindex="0" role="region" aria-label="Bell curve and pie chart; scroll horizontally on small screens">
+    <div class="region-controls" role="group" aria-label="Highlight a matching region in all three pictures">
+      <span>Find the same area:</span>
+      <button type="button" data-region="left" aria-pressed="false">Lower tail</button>
+      <button type="button" data-region="center" aria-pressed="false">Purple middle</button>
+      <button type="button" data-region="right" aria-pressed="false">Upper tail</button>
+      <button type="button" id="clear-highlight">Clear highlight</button>
+    </div>
+    <p class="control-note">Hover or tap an area in the bell, pie, or bar to highlight its match. You can also use these buttons.</p>
+    <p id="region-description" class="region-description" aria-live="polite">Choose an area to connect the pictures.</p>
+    <div class="charts-scroll">
     <div class="charts">
       <section class="curve-panel" aria-labelledby="curve-title">
         <h2 id="curve-title">Normal distribution</h2>
         <canvas id="curve" role="img" aria-label="Standard normal distribution with the selected central area shaded">Your browser must support canvas to display the bell curve. Numerical results are below.</canvas>
+        <p id="bounds-note" class="control-note" hidden></p>
     <div class="legend">
       <span><i class="dot" style="background:#6d5dfc"></i>Your central percentage</span>
       <span><i class="dot" style="background:#35a36f"></i>±1σ = 68.3%</span>
@@ -43,12 +69,14 @@
       <div class="stat">Central area<b id="central">75.00%</b></div>
       <div class="stat">Boundary<b id="zscore">±1.150σ</b></div>
       <div class="stat">Each tail<b id="tail">12.50%</b></div>
-      <div class="stat">Closest reference<b id="closest">1σ (68.3%)</b></div>
+      <div class="stat">In plain language<b id="interpretation">About 1.15 standard deviations on each side</b></div>
     </div>
+
       </section>
       <section class="pie-panel" aria-labelledby="pie-title">
         <h2 id="pie-title">Pie Chart (part of the whole)</h2>
         <div id="pie" class="pie" role="img" aria-label="75.00% selected, 25.00% remaining">
+          <span class="pie-highlight" aria-hidden="true"></span>
           <span class="clock-number clock-twelve" aria-hidden="true">12</span>
           <span class="clock-number clock-three" aria-hidden="true">3</span>
           <span class="clock-number clock-six" aria-hidden="true">6</span>
@@ -70,7 +98,7 @@
 
         <section class="clock-explanation" aria-labelledby="clock-explanation-title">
           <h3 id="clock-explanation-title">Reading the clock</h3>
-        <p class="pie-note">The <strong class="purple-text">purple area runs clockwise</strong> from the short hour hand to the long minute hand and <strong class="purple-text">matches your percentage.</strong> The <strong>dotted gray line</strong>, styled as a seconds hand, <strong>divides the remaining area into two equal parts</strong>—one for each tail of the normal distribution.</p>
+        <p class="pie-note">The <strong class="purple-text">purple area runs clockwise</strong> from the short hour hand to the long minute hand and <strong class="purple-text">matches your percentage.</strong> The <strong>dotted gray line</strong>, styled as a seconds hand, <strong>divides the remaining area into two equal parts</strong>, one for each tail of the normal distribution.</p>
         </section>
       </section>
     </div>
@@ -89,76 +117,65 @@
       <h3>Your numbers, in plain language</h3>
       <p id="reading-summary"></p>
       <p id="reading-boundary"></p>
-      <div class="area-strip" aria-hidden="true">
-        <span id="strip-left" class="strip-tail"></span><span id="strip-center" class="strip-center"></span><span id="strip-right" class="strip-tail"></span>
+      <div class="area-strip" role="group" aria-label="Select a share of the total area">
+        <button type="button" id="strip-left" class="strip-tail" data-region="left" aria-label="Lower tail" aria-pressed="false"></button><button type="button" id="strip-center" class="strip-center" data-region="center" aria-label="Purple middle" aria-pressed="false"></button><button type="button" id="strip-right" class="strip-tail" data-region="right" aria-label="Upper tail" aria-pressed="false"></button>
       </div>
-      <p class="strip-caption">Lower tail · Purple middle · Upper tail — shares of the total area</p>
+      <p class="strip-caption">Lower tail · Purple middle · Upper tail (shares of the total area)</p>
     </div>
-    <div class="guide-grid" tabindex="0" role="region" aria-label="Three-column reading guide; scroll horizontally on small screens">
+    <div class="guide-grid">
       <article>
-        <h3>How to read the bell</h3>
+        <h3 class="purple-text">1. How to read the bell</h3>
         <p>Read left to right as smaller to larger values. The middle, marked μ (“mu”), is the average. The curve is taller near the average because values cluster there; values far from the average are less common.</p>
         <p>Percentage comes from the <strong>area under the curve</strong>. A taller point by itself is not a percentage. The purple middle includes values on both sides of the average.</p>
       </article>
       <article>
-        <h3>What does σ mean?</h3>
+        <h3 class="purple-text">2. What does σ mean?</h3>
         <p>σ (“sigma”) is one standard deviation: a measure of how spread out values are. <strong>Think of it as a ruler for distance from the average. A z-score tells you that distance in these units.</strong></p>
-        <p>Imagine your walk to school usually takes 20 minutes, and one standard deviation is 5 minutes. A 25-minute walk is one “step” longer than average—a z-score of +1. A 15-minute walk is one step shorter—a z-score of −1. So ±1σ covers walks lasting 15 to 25 minutes.</p>
-        <p>The key idea: <strong>a five-minute difference feels unusual if your walk is very consistent, but ordinary if it varies a lot.</strong> Standard deviation gives that difference context.</p>
+
       </article>
       <article>
-        <h3>Why this is useful</h3>
-        <p>The pie shows how much of the whole you selected. The bell curve also shows how far from average a central interval must reach to include that share.</p>
+        <h3 class="purple-text">3. Why this is useful</h3>
+        <p>The pie shows how much of the whole you selected. <strong>The bell curve also shows how far from average a central interval must reach to include that share.</strong></p>
         <p>When data follow a normal distribution, about 68% falls within one standard deviation of the average and about 95% within two. This helps you understand spread and recognize values far from the average.</p>
       </article>
     </div>
+    <div class="walking-layout">
+      <article aria-labelledby="walking-story-title">
+        <h3 id="walking-story-title" class="yellow-text">Example: Your Walk to School</h3>
+        <p>Imagine your walk to school usually takes 20 minutes, and one standard deviation is 5 minutes. A 25-minute walk is one “step” longer than average, with a z-score of +1. A 15-minute walk is one step shorter, with a z-score of −1. So ±1σ covers walks lasting 15 to 25 minutes.</p>
+        <p>The key idea: <strong>a five-minute difference feels unusual if your walk is very consistent, but ordinary if it varies a lot.</strong> Standard deviation gives that difference context.</p>
+      </article>
+        <details id="walking-example" class="walking-example">
+          <summary>Try a real-world scale: walking time</summary>
+          <p>Suppose walking times roughly follow a bell curve. Change the average and spread to see your selected range in minutes.</p>
+          <div class="example-inputs">
+            <div><label for="walk-mean">Average (minutes)</label><input id="walk-mean" type="number" value="20" step="any" aria-describedby="walk-error"></div>
+            <div><label for="walk-sd">Standard deviation (minutes)</label><input id="walk-sd" type="number" value="5" min="0" step="any" aria-describedby="walk-error"></div>
+          </div>
+          <p id="walk-error" class="error" role="alert" hidden></p>
+          <p id="walk-result" class="walk-result" aria-live="polite"></p>
+          <p id="walk-model-note" class="control-note">This is an illustrative normal model, not a prediction of your next walk.</p>
+        </details>
+    </div>
     <p class="guide-context"><strong>What your input means:</strong> This tool turns your fraction into a central area in a normal model. Entering 75 / 100 selects the middle 75%; it does not mean a score of 75 is above average or at the 75th percentile. Applying the model to real data requires knowing its average, spread, and whether a bell curve is a reasonable fit.</p>
-  </section>
-
-  <section class="card guide" aria-labelledby="why-care-title">
-    <h2 id="why-care-title">Why should I care about the bell curve?</h2>
-    <p class="guide-intro">A pie chart makes a share of the whole easy to see. A bell curve connects that share to a range of values: where they sit relative to the average and how common that range is.</p>
-    <div class="guide-grid" tabindex="0" role="region" aria-label="Three-column guide to what the curve reveals; scroll horizontally on small screens">
-      <article>
-        <h3>The shape tells a story</h3>
-        <p>The tall middle tells you that values cluster near the average. The low tails tell you that values far from the average are less common. The two sides mirror each other, so half the total area is below the average and half is above it.</p>
-        <p><strong>Compare two ranges of the same width: the one nearer the middle contains more area, so it represents a larger percentage.</strong></p>
-      </article>
-      <article>
-        <h3>Area is the percentage</h3>
-        <p>Imagine shading the space underneath the curve between two values. That area is the share of observations the model expects in that range. All the area under the curve adds up to 100%.</p>
-        <p><strong>The height at one point is not a percentage.</strong> To get a percentage, you need a range and the area beneath it. The colored background bands are reference guides; only the area under the black curve counts.</p>
-      </article>
-      <article>
-        <h3>More width doesn’t mean equal gains</h3>
-        <p>Near the peak, a small increase in the selected range adds quite a lot of area. Farther out, the curve is lower, so the same increase adds less.</p>
-        <p>That’s why the middle ±1σ contains about 68%, ±2σ contains about 95%, and ±3σ contains about 99.7%. <strong>Doubling the width doesn’t double the percentage.</strong></p>
-      </article>
-    </div>
-    <div class="reading">
-      <h3>Picture your walk to school</h3>
-      <p>Suppose your walk averages 20 minutes, with a standard deviation of 5 minutes, and the times roughly follow a bell curve. Walks taking 20–25 minutes account for about 34% of the total. Walks taking 25–30 minutes account for only about 14%.</p>
-      <p><strong>Both are five-minute windows, but the first is much more common because it sits closer to the average.</strong> A pie chart can display those shares. The bell curve helps you see how they relate to the usual walking time and its variation.</p>
-    </div>
-    <p class="guide-context"><strong>Try it above:</strong> Compare 68 / 100 with 95 / 100, then 99.7 / 100. Watch the boundaries move farther from the average while the pie fills up. The bell curve’s shape stays the same—you’re choosing how much of its area to include. These percentages describe a normal model; a fraction alone cannot tell you whether real data follow that model.</p>
   </section>
 
   <section class="card guide" aria-labelledby="daily-life-title">
     <h2 id="daily-life-title">How can I use this in my daily life to interpret percentages?</h2>
     <p class="guide-intro">Start with “a percentage of what?” It might describe a share you used, questions you answered correctly, or observations inside a range. Those are different stories, even when the number is the same.</p>
-    <div class="guide-grid" tabindex="0" role="region" aria-label="Three-column guide to everyday percentages; scroll horizontally on small screens">
+    <div class="guide-grid">
       <article>
-        <h3>Make a fraction easier to picture</h3>
+        <h3 class="purple-text">Make a fraction easier to picture</h3>
         <p>If you finish 6 of your 8 planned tasks, enter 6 as the part and 8 as the whole. The pie shows 75% complete and 25% remaining.</p>
         <p><strong>Use the pie to understand a share.</strong> The bell shows what the middle 75% of a normal model looks like; it does not tell you whether your productivity is above average.</p>
       </article>
       <article>
-        <h3>Put a score in context</h3>
+        <h3 class="purple-text">Put a score in context</h3>
         <p>Getting 80% on a quiz tells you how much you got right. It doesn’t tell you how you did compared with the class: the average might be 60% or 90%.</p>
         <p><strong>Ask for the average and how spread out the scores are.</strong> If they roughly follow a bell curve, those details help locate your score. Entering 80 / 100 here selects the middle 80% of the model, not your position in the class.</p>
       </article>
       <article>
-        <h3>Understand what “usual” covers</h3>
+        <h3 class="purple-text">Understand what “usual” covers</h3>
         <p>Suppose your walks to school average 20 minutes, with a standard deviation of 5 minutes, and roughly follow a bell curve. Enter 95 / 100: the boundary is about ±1.96σ, so the middle 95% spans roughly 10 to 30 minutes.</p>
         <p><strong>Look at what’s left outside the range, too.</strong> About 2.5% would be shorter and 2.5% longer. That’s a model’s expectation over many walks, not a guarantee about your next one.</p>
       </article>
@@ -169,6 +186,191 @@
       <p>Use this tool to picture the share first. Use the bell curve to explore a central range when a normal model makes sense for the data. A percentage by itself cannot establish that fit.</p>
     </div>
   </section>
+
+  <section class="card guide" aria-labelledby="why-care-title">
+    <h2 id="why-care-title">What does the bell curve show me?</h2>
+    <p class="guide-intro">A pie chart makes a share of the whole easy to see. A bell curve connects that share to a range of values: where they sit relative to the average and how common that range is.</p>
+    <div class="guide-grid">
+      <article>
+        <h3 class="purple-text">The shape tells a story</h3>
+        <p>The tall middle tells you that values cluster near the average. The low tails tell you that values far from the average are less common. The two sides mirror each other, so half the total area is below the average and half is above it.</p>
+        <p><strong>Compare two ranges of the same width: the one nearer the middle contains more area, so it represents a larger percentage.</strong></p>
+      </article>
+      <article>
+        <h3 class="purple-text">Area is the percentage</h3>
+        <p>Imagine shading the space underneath the curve between two values. That area is the share of observations the model expects in that range. All the area under the curve adds up to 100%.</p>
+        <p><strong>The height at one point is not a percentage.</strong> To get a percentage, you need a range and the area beneath it. The thin colored lines mark the familiar one-, two-, and three-standard-deviation ranges; only the area under the black curve counts.</p>
+      </article>
+      <article>
+        <h3 class="purple-text">More width doesn’t mean equal gains</h3>
+        <p>Near the peak, a small increase in the selected range adds quite a lot of area. Farther out, the curve is lower, so the same increase adds less.</p>
+        <p>That’s why the middle ±1σ contains about 68%, ±2σ contains about 95%, and ±3σ contains about 99.7%. <strong>Doubling the width doesn’t double the percentage.</strong></p>
+      </article>
+    </div>
+    <div class="reading">
+      <h3>Picture your walk to school</h3>
+      <p>Suppose your walk averages 20 minutes, with a standard deviation of 5 minutes, and the times roughly follow a bell curve. Walks taking 20–25 minutes account for about 34% of the total. Walks taking 25–30 minutes account for only about 14%.</p>
+      <p><strong>Both are five-minute windows, but the first is much more common because it sits closer to the average.</strong> A pie chart can display those shares. The bell curve helps you see how they relate to the usual walking time and its variation.</p>
+    </div>
+    <p class="guide-context"><strong>Try it above:</strong> Compare 68 / 100 with 95 / 100, then 99.7 / 100. Watch the boundaries move farther from the average while the pie fills up. The bell curve’s shape stays the same. You’re choosing how much of its area to include. These percentages describe a normal model; a fraction alone cannot tell you whether real data follow that model.</p>
+  </section>
+
+  <section class="card guide" aria-labelledby="clt-title">
+    <h2 id="clt-title">The Central Limit Theorem and Normal Distribution</h2>
+    <p>A pie chart can show any percentage. <strong>A bell curve adds meaning when we’re looking at how values vary around an average.</strong></p>
+    <p>One reason bell curves are useful is the <strong>Central Limit Theorem</strong>: when we repeatedly take large enough random samples and calculate their averages, those averages tend to form a bell-shaped pattern, even if the original values don’t.</p>
+    <p>The dice picture shows the idea. As more dice are combined, results cluster near the middle, and extreme results become less common.</p>
+    <figure class="clt-figure">
+      <img src="cltDice.png" alt="Six charts showing outcomes for one die and sums of two through six dice. As more dice are added, the distribution becomes more bell-shaped." loading="lazy" width="738" height="369">
+      <figcaption>Adding more dice makes the totals more bell-shaped. These charts show sums; dividing each total by the number of dice gives averages with the same shape, centered around 3.5.</figcaption>
+    </figure>
+    <p><strong>That connects to the shaded area above:</strong> selecting 75% shows a middle range containing 75% of a normal distribution, with the remaining 25% split between the two tails.</p>
+    <p>But a percentage alone doesn’t tell us that our data follow a bell curve. <strong>The pie shows your fraction directly; the bell shows what that fraction looks like as an area in a normal model.</strong></p>
+    <div class="reading">
+      <h3>For data scientists: a quick refresher</h3>
+      <p><strong>Choose how much you want in the middle. The chart tells you how far to go on each side.</strong> The distance is measured in standard deviations. That’s the connection between percentages and z-scores.</p>
+
+      <h4>1. Remember what a z-score means</h4>
+      <p><strong>A z-score is distance from the average, measured in standard deviations.</strong> Zero is the average. +1 is one standard deviation above it. −1 is one below.</p>
+      <p>If the average is 20 and one standard deviation is 5, a value of 25 has a z-score of +1: it is one 5-unit step above 20.</p>
+
+      <h4>2. Pick a percentage and read the picture</h4>
+      <p>Enter <strong>95 / 100</strong>. The purple middle holds 95%. The two gray tails hold <strong>2.5% each</strong>. The boundaries are <strong>−1.96 and +1.96</strong>.</p>
+      <p>In plain English: <strong>go about two standard deviations below and above the average to include the middle 95% of a normal distribution.</strong></p>
+
+      <h4>3. Turn that distance back into useful units</h4>
+      <p>Multiply the cutoff by the spread you care about. Then subtract and add that amount.</p>
+      <div class="refresher-examples">
+        <article>
+          <h4>For individual values: use standard deviation</h4>
+          <p>Walking times average <strong>20 minutes</strong>, with a standard deviation of <strong>5 minutes</strong>.</p>
+          <p>1.96 × 5 = <strong>9.8 minutes</strong> on each side.</p>
+          <p>The middle 95% of this normal model runs from <strong>10.2 to 29.8 minutes</strong>.</p>
+        </article>
+        <article>
+          <h4>For an estimate: use standard error</h4>
+          <p>Your estimate is <strong>20</strong>, with a standard error of <strong>2</strong>.</p>
+          <p>1.96 × 2 = <strong>3.92</strong> on each side.</p>
+          <p>An approximate 95% confidence interval runs from <strong>16.08 to 23.92</strong>, if the normal approximation is appropriate and bias is negligible.</p>
+        </article>
+      </div>
+      <p><strong>Remember: SD is the spread of individual values. SE is how much an estimate varies across repeated samples.</strong></p>
+
+      <h4>Three uses, the same shaded picture</h4>
+      <p>Start with <strong>95 / 100</strong>: 95% purple, 5% gray, and boundaries at ±1.96. What those areas mean depends on what you are measuring.</p>
+      <section class="coverage-explorer" aria-labelledby="coverage-title">
+        <h4 id="coverage-title">Try the shaded areas here</h4>
+        <div class="presets coverage-modes" role="group" aria-label="What do the shaded areas represent?">
+          <button type="button" data-coverage-mode="uncertainty" aria-pressed="true">1. Uncertainty</button>
+          <button type="button" data-coverage-mode="unusualness" aria-pressed="false">2. Unusualness</button>
+          <button type="button" data-coverage-mode="null" aria-pressed="false">3. Surprising under the null</button>
+        </div>
+        <div class="coverage-controls">
+          <div><label for="coverage-input">Middle area (%)</label><input id="coverage-input" type="number" min="0" max="100" step="any" value="95" aria-describedby="coverage-error"></div>
+          <div class="presets" role="group" aria-label="Local coverage examples">
+            <button type="button" data-coverage="90" aria-pressed="false">90%</button>
+            <button type="button" data-coverage="95" aria-pressed="true">95%</button>
+            <button type="button" data-coverage="99" aria-pressed="false">99%</button>
+          </div>
+        </div>
+        <p id="coverage-error" class="error" role="alert" hidden>Enter a percentage from 0 to 100.</p>
+        <svg id="coverage-plot" class="coverage-plot" viewBox="0 0 640 220" role="img" aria-labelledby="coverage-plot-title coverage-plot-description">
+          <title id="coverage-plot-title">Central coverage and the two tails</title>
+          <desc id="coverage-plot-description">The middle 95% lies within approximately ±1.960, leaving 2.5% in each tail.</desc>
+          <path id="coverage-total" fill="#e2e2e9"></path>
+          <path id="coverage-middle" fill="#8e7cf0"></path>
+          <path id="coverage-outline" fill="none" stroke="#292934" stroke-width="2"></path>
+          <path id="coverage-boundaries" fill="none" stroke="#5b4be0" stroke-width="2"></path>
+          <path d="M 24 178 H 616" stroke="#aaa" fill="none"></path>
+          <g id="coverage-ticks" fill="#555" font-size="12" text-anchor="middle"></g>
+        </svg>
+        <div class="coverage-stats" aria-live="polite" aria-atomic="true">
+          <div>Middle area<strong id="coverage-middle-value">95%</strong></div>
+          <div>z-boundaries<strong id="coverage-z">±1.960</strong></div>
+          <div>Each tail<strong id="coverage-tail">2.5%</strong></div>
+          <div>Both tails<strong id="coverage-outside">5%</strong></div>
+        </div>
+        <p id="coverage-note" class="control-note">Switch to 99% and watch the boundaries move outward as the gray tails shrink.</p>
+        <div class="coverage-conclusion" aria-live="polite" aria-atomic="true">
+          <h4 id="coverage-conclusion-title">What this means for uncertainty</h4>
+          <div id="coverage-example" class="coverage-example" hidden>
+            <strong>Example: estimating the average walk to school</strong>
+            <p>Suppose your study estimates an average walking time of <strong>20 minutes</strong>, with a <strong>standard error of 2 minutes</strong>. How precise is that estimate?</p>
+            <p><strong id="coverage-example-result"></strong></p>
+          </div>
+          <p id="coverage-conclusion-area"></p>
+          <p id="coverage-conclusion-action"></p>
+          <p id="coverage-conclusion-caution" class="control-note"></p>
+        </div>
+        <p class="control-note">This example has its own controls. The main charts above keep your original selection.</p>
+      </section>
+      <div class="guide-grid">
+        <article>
+          <h4 class="purple-text">1. How uncertain is my estimate?</h4>
+          <p>Picture repeating your study. Each sample gives a slightly different estimate. If the estimation error divided by its standard error is approximately standard normal, <strong>the purple middle represents the roughly 95% of errors within ±1.96 standard errors.</strong></p>
+          <p>Use <strong>estimate ± 1.96 × SE</strong> to build the corresponding approximate confidence interval. The gray tails represent the roughly 5% of repeated samples whose intervals miss the true parameter.</p>
+          <p><strong>Try 99 / 100:</strong> the purple area expands and the cutoff grows to about 2.576. More coverage means a wider interval for the same SE.</p>
+        </article>
+        <article>
+          <h4 class="purple-text">2. Is this observation unusual?</h4>
+          <p>Now let the bell describe individual observations, such as sensor measurements. <strong>The purple middle is the range you choose to leave unflagged; the gray tails are the values you flag.</strong></p>
+          <p>With a correct normal model and a 95% middle range, about 5% of ordinary observations still fall in the tails. A flag means “worth checking,” not “definitely wrong.” Use the observations’ <strong>standard deviation</strong>, not an estimate’s SE.</p>
+          <p><strong>Try 99 / 100:</strong> the total flagged share falls to about 1%. You get fewer flags, but may miss smaller changes. Skew or heavy tails can make these normal-model percentages inaccurate.</p>
+        </article>
+        <article>
+          <h4 class="purple-text">3. Is this result surprising under the null?</h4>
+          <p>For a two-sided z-test, let the bell describe the test statistic when the null hypothesis is true. <strong>The purple middle is the non-rejection region; the gray tails are the rejection regions.</strong></p>
+          <p>At a 5% significance level, reject when the observed z-statistic lies beyond ±1.96. The selected 5% tail area is your threshold, called α. The <strong>p-value</strong> instead counts the area at least as far from zero as your observed statistic, across both tails.</p>
+          <p>If the observed z is 1.96, p is about 0.05. Farther out means a smaller p-value. A valid z-test needs an appropriate null model and SE; the p-value is not the probability that the null hypothesis is true.</p>
+        </article>
+      </div>
+      <p><strong>Same geometry, different meaning:</strong> the tails can represent missed intervals, flagged observations, or rejected tests. This tool shows the areas and cutoffs; it does not fit a model or run a test on your data.</p>
+
+      <h4 class="red-text">! One easy mix-up!</h4>
+      <p><strong>The middle 95% is not the 95th percentile.</strong> The middle 95% starts at the 2.5th percentile and ends at the 97.5th. If you want the 95th percentile instead, enter <strong>90 / 100</strong> and use the positive boundary, about <strong>1.645</strong>.</p>
+      <p class="guide-context">These connections assume a suitable normal model. This tool gives you the cutoff; it cannot check whether your data or estimate fit that model. A confidence interval describes uncertainty in a parameter, not where 95% of individual values will fall.</p>
+
+      <details class="math-reference">
+        <summary>Show the formulas and extra connections</summary>
+        <p>In the formulas below, x is a value, μ is the population mean, σ is the population standard deviation, and n is the sample size.</p>
+        <h4>Convert between values and z-scores</h4>
+        <div class="formula-grid"><div class="formula-card"><span class="formula-label">Value → z-score</span><math display="block" aria-label="z equals x minus mu, divided by sigma"><mrow><mi>z</mi><mo>=</mo><mfrac><mrow><mi>x</mi><mo>−</mo><mi>μ</mi></mrow><mi>σ</mi></mfrac></mrow></math></div><div class="formula-card"><span class="formula-label">z-score → value</span><math display="block" aria-label="x equals mu plus z times sigma"><mrow><mi>x</mi><mo>=</mo><mi>μ</mi><mo>+</mo><mi>z</mi><mi>σ</mi></mrow></math></div></div>
+        <h4>Convert central coverage into a cutoff</h4>
+        <p>C is the middle share written as a fraction: 95% means C = 0.95. The positive cutoff is called z*. Φ gives the normal area to the left of a z-score; Φ⁻¹ converts that area back into a z-score.</p>
+        <div class="formula-grid"><div class="formula-card"><span class="formula-label">Area in each tail</span><math display="block" aria-label="Each tail equals one minus C, divided by two"><mrow><mtext>Each tail</mtext><mo>=</mo><mfrac><mrow><mn>1</mn><mo>−</mo><mi>C</mi></mrow><mn>2</mn></mfrac></mrow></math></div><div class="formula-card"><span class="formula-label">Positive z-boundary</span><math display="block" aria-label="z star equals inverse Phi of the quantity one plus C divided by two"><mrow><msup><mi>z</mi><mo>∗</mo></msup><mo>=</mo><msup><mi>Φ</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo>(</mo><mfrac><mrow><mn>1</mn><mo>+</mo><mi>C</mi></mrow><mn>2</mn></mfrac><mo>)</mo></mrow></mrow></math></div></div>
+        <h4>Connect the two tails to a p-value</h4>
+        <p>For a two-sided z-test under a standard normal null model, count the area beyond your observed distance from zero in both directions. |z| means the absolute value of z. The inputs above select a central percentage; they do not calculate a p-value from your test statistic.</p>
+        <div class="formula-card"><span class="formula-label">Two-sided normal p-value</span><math display="block" aria-label="p equals two times the quantity one minus Phi of the absolute value of z"><mrow><mi>p</mi><mo>=</mo><mn>2</mn><mrow><mo>[</mo><mn>1</mn><mo>−</mo><mi>Φ</mi><mrow><mo>(</mo><mo>|</mo><mi>z</mi><mo>|</mo><mo>)</mo></mrow><mo>]</mo></mrow></mrow></math></div>
+        <h4>Build an approximate confidence interval</h4>
+        <p>Use the estimator’s standard error, with an appropriate normal approximation and negligible bias.</p>
+        <div class="formula-card"><span class="formula-label">Approximate confidence interval</span><math display="block" aria-label="Estimate plus or minus z star times standard error"><mrow><mtext>estimate</mtext><mo>±</mo><msup><mi>z</mi><mo>∗</mo></msup><mo>×</mo><mi mathvariant="normal">SE</mi></mrow></math></div>
+        <p>For the mean of independent observations from the same distribution:</p>
+        <div class="formula-card"><span class="formula-label">Standard error of a mean (independent, identically distributed observations)</span><math display="block" aria-label="Standard error equals sigma divided by the square root of n"><mrow><mi mathvariant="normal">SE</mi><mo>=</mo><mfrac><mi>σ</mi><msqrt><mi>n</mi></msqrt></mfrac></mrow></math></div>
+        <p>Four times as many observations gives half the standard error. It does not halve the spread of individual values.</p>
+        <p>A 95% confidence procedure covers the fixed population parameter in about 95% of repeated samples. Correlated data require an appropriate standard error. Small samples, heavy tails, or parameters near a boundary may need another method; a normal-population mean with unknown variance uses a t interval for exact small-sample coverage.</p>
+      </details>
+    </div>
+    <aside class="clt-theorem" aria-labelledby="clt-math-title">
+      <h3 id="clt-math-title">The mathematical statement</h3>
+      <p>For independent, identically distributed observations with mean μ and finite, positive variance σ², the standardized sample mean converges in distribution to a standard normal distribution:</p>
+      <div class="clt-equation">
+        <math display="block" aria-label="Square root of n times the quantity X bar sub n minus mu, divided by sigma, converges in distribution to N of zero, one, as n tends to infinity.">
+          <mrow>
+            <mfrac>
+              <mrow><msqrt><mi>n</mi></msqrt><mo>(</mo><msub><mover><mi>X</mi><mo>¯</mo></mover><mi>n</mi></msub><mo>−</mo><mi>μ</mi><mo>)</mo></mrow>
+              <mi>σ</mi>
+            </mfrac>
+            <mover><mo>⟶</mo><mi>d</mi></mover>
+            <mrow><mi mathvariant="script">N</mi><mo>(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>)</mo></mrow>
+            <mspace width="1em"/><mtext>as</mtext><mspace width="0.4em"/><mi>n</mi><mo>→</mo><mi>∞</mi>
+          </mrow>
+        </math>
+      </div>
+      <p class="clt-symbols">Here, n is the sample size, X̄ₙ is the sample average, μ is the population mean, and σ is the population standard deviation. N(0, 1) is the standard normal distribution, with mean 0 and standard deviation 1.</p>
+    </aside>
+  </section>
+
+
 
   <div class="card">
     <table class="reference">
@@ -184,6 +386,7 @@
 </div>
 
 <script src="js/statistics.js?v=guide-2" defer></script>
-<script src="js/visualizer.js?v=clock-midpoint-1" defer></script>
+<script src="js/visualizer.js?v=remove-todo-1" defer></script>
+<script src="js/coverage-explorer.js?v=4" defer></script>
 </body>
 </html>
