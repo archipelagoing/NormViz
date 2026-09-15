@@ -75,7 +75,10 @@ function updatePie(pct){
   document.getElementById('clock-time').textContent=clockTime;
   pie.style.setProperty('--hand-angle',(hourAngle+sweep)+'deg');
   pie.style.setProperty('--hour-angle',hourAngle+'deg');
-  pie.style.setProperty('--tail-angle',(hourAngle+sweep+(360-sweep)/2)+'deg');
+  const tailAngle=hourAngle+sweep+(360-sweep)/2;
+  const secondPosition=((tailAngle%360)+360)%360/6;
+  pie.style.setProperty('--second-angle',tailAngle+'deg');
+  document.getElementById('divider-seconds').textContent=valid&&pct<100?secondPosition.toFixed(2)+' s':'—';
   pie.classList.toggle('is-empty',valid&&pct===0);
   pie.classList.toggle('is-full',valid&&pct===100);
   pie.classList.toggle('is-invalid',!valid);

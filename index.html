@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&amp;display=swap">
-<link rel="stylesheet" href="css/style.css?v=clock-sector-1">
+<link rel="stylesheet" href="css/style.css?v=clock-midpoint-1">
 </head>
 <body>
 <div class="wrap">
@@ -44,16 +44,17 @@
           <span class="clock-hand hour-hand" aria-hidden="true"></span>
           <span class="clock-hand minute-hand" aria-hidden="true"></span>
           <span class="clock-pin" aria-hidden="true"></span>
-          <span class="pie-divider" aria-hidden="true"></span>
+          <span class="clock-seconds" aria-hidden="true"></span>
         </div>
         <p class="pie-value" id="pie-percent">75.00%</p>
-        <p class="clock-readout">Clock equivalent <strong id="clock-time" aria-live="polite">12:49:05</strong></p>
+        <p class="clock-readout">Boundary-hand time <strong id="clock-time" aria-live="polite">12:49:05</strong></p>
+        <p class="clock-readout">Dotted hand’s seconds position <strong id="divider-seconds" aria-live="polite">56.59 s</strong></p>
         <div class="pie-legend">
           <span><i class="dot selected-dot"></i>Selected <b id="pie-selected">75.00%</b></span>
           <span><i class="dot remaining-dot"></i>Remaining <b id="pie-remaining">25.00%</b></span>
         </div>
         <p class="pie-note">The purple area runs clockwise from the short hour hand to the long minute hand and matches your percentage. The dotted gray line halves the remainder.</p>
-        <p class="pie-note">Both hands move at normal clock speeds, starting at <strong>12:00:00 at 0%</strong> and reaching approximately <strong>1:05:27 at 100%</strong>, when the minute hand completes its first full circle relative to the hour hand. <strong>The dotted gray line acts visually as a seconds hand</strong>, showing how the two tails of the normal distribution are split rather than tracking actual seconds. Only the time readout is rounded to the nearest second.</p>
+        <p class="pie-note">Both boundary hands move at normal clock speeds, starting at <strong>12:00:00 at 0%</strong> and reaching approximately <strong>1:05:27 at 100%</strong>. <strong>The dotted gray line’s angle gives its seconds position: 6° equals one second.</strong> This separate reading describes where the divider points, not the seconds of the boundary-hand time. At 0%, the gray circle is split by a diameter; at 100%, no remainder or divider is shown. Only the displayed readings are rounded.</p>
       </section>
     </div>
     </div>
@@ -173,6 +174,6 @@
 </div>
 
 <script src="js/statistics.js?v=guide-2" defer></script>
-<script src="js/visualizer.js?v=clock-sector-1" defer></script>
+<script src="js/visualizer.js?v=clock-midpoint-1" defer></script>
 </body>
 </html>

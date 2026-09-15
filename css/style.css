@@ -34,9 +34,9 @@
   .clock-readout strong { display:block; font-size:23px; font-variant-numeric:tabular-nums; color:#292934; margin-top:4px; }
   .clock-pin { position:absolute; z-index:4; left:50%; top:50%; box-sizing:border-box; width:5px; height:5px; border-radius:50%; background:#292934; border:1px solid #fff; transform:translate(-50%,-50%); }
   .pie.is-invalid .clock-hand,.pie.is-invalid .clock-pin { display:none; }
-  .pie-divider { position:absolute; z-index:1; left:50%; bottom:50%; height:50%; width:0; border-left:2px dotted #9693a3; transform-origin:0 100%; transform:rotate(var(--tail-angle,339.545454545deg)); pointer-events:none; }
-  .pie.is-empty .pie-divider { bottom:0; height:100%; transform-origin:0 50%; }
-  .pie.is-full .pie-divider,.pie.is-invalid .pie-divider { display:none; }
+  .clock-seconds { position:absolute; z-index:1; left:50%; bottom:50%; height:50%; width:0; border-left:2px dotted #9693a3; transform-origin:0 100%; transform:rotate(var(--second-angle,339.545454545deg)); pointer-events:none; }
+  .pie.is-empty .clock-seconds { bottom:0; height:100%; transform-origin:0 50%; }
+  .pie.is-full .clock-seconds,.pie.is-invalid .clock-seconds { display:none; }
   .pie.is-invalid { background:#e2e2e9; }
   .pie-value { font-size:28px; font-weight:800; margin:0 0 14px; }
   .pie-legend { display:grid; gap:8px; font-size:13px; text-align:left; }
