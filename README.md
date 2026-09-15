@@ -20,7 +20,9 @@ Enter a nonnegative **Part** and a positive **Whole**, with Part no greater than
 
 At 0%, the interval has zero width. At 100%, its boundaries are infinite. The chart shows only −3.6σ through +3.6σ.
 
-A pie chart beside the bell curve shows the same percentage as a portion of the whole, with the remainder in gray. Both charts update as you type and stack vertically on smaller screens.
+A pie chart beside the bell curve shows the same percentage as a portion of the whole, with the remainder in gray. Both charts update as you type and stay side by side; on very narrow screens, scroll horizontally within the chart section.
+
+A guide underneath explains the selected area, boundaries, and tails in plain language. Its summary and area strip update with your input, alongside an introduction to averages, standard deviations, and when a normal model is useful.
 
 ## Project structure
 

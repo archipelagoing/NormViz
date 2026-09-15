@@ -25,6 +25,7 @@
 
   <div class="card">
     <p id="input-error" class="error" role="alert" hidden></p>
+    <div class="charts-scroll" tabindex="0" role="region" aria-label="Bell curve and pie chart; scroll horizontally on small screens">
     <div class="charts">
       <section class="curve-panel" aria-labelledby="curve-title">
         <h2 id="curve-title">Normal distribution</h2>
@@ -41,6 +42,7 @@
         <p class="pie-note">The purple slice equals the shaded central area under the bell curve.</p>
       </section>
     </div>
+    </div>
     <div class="legend">
       <span><i class="dot" style="background:#6d5dfc"></i>Your central percentage</span>
       <span><i class="dot" style="background:#35a36f"></i>±1σ = 68.3%</span>
@@ -54,6 +56,39 @@
       <div class="stat">Closest reference<b id="closest">1σ (68.3%)</b></div>
     </div>
   </div>
+
+  <section class="card guide" aria-labelledby="guide-title">
+    <h2 id="guide-title">Same percentage, two ways to see it</h2>
+    <p class="guide-intro">Think of the entire pie and the entire area under the bell curve as 100%. Purple represents the same share in both pictures.</p>
+    <div class="reading" aria-live="polite" aria-atomic="true">
+      <h3>Your numbers, in plain language</h3>
+      <p id="reading-summary"></p>
+      <p id="reading-boundary"></p>
+      <div class="area-strip" aria-hidden="true">
+        <span id="strip-left" class="strip-tail"></span><span id="strip-center" class="strip-center"></span><span id="strip-right" class="strip-tail"></span>
+      </div>
+      <p class="strip-caption">Lower tail · Purple middle · Upper tail — shares of the total area</p>
+    </div>
+    <div class="guide-grid">
+      <article>
+        <h3>How to read the bell</h3>
+        <p>Read left to right as smaller to larger values. The middle, marked μ (“mu”), is the average. The curve is taller near the average because values cluster there; values far from the average are less common.</p>
+        <p>Percentage comes from the <strong>area under the curve</strong>. A taller point by itself is not a percentage. The purple middle includes values on both sides of the average.</p>
+      </article>
+      <article>
+        <h3>What does σ mean?</h3>
+        <p>σ (“sigma”) is one standard deviation: a measure of how spread out values are. <strong>Think of it as a ruler for distance from the average. A z-score tells you that distance in these units.</strong></p>
+        <p>Imagine your walk to school usually takes 20 minutes, and one standard deviation is 5 minutes. A 25-minute walk is one “step” longer than average—a z-score of +1. A 15-minute walk is one step shorter—a z-score of −1. So ±1σ covers walks lasting 15 to 25 minutes.</p>
+        <p>The key idea: <strong>a five-minute difference feels unusual if your walk is very consistent, but ordinary if it varies a lot.</strong> Standard deviation gives that difference context.</p>
+      </article>
+      <article>
+        <h3>Why this is useful</h3>
+        <p>The pie shows how much of the whole you selected. The bell curve also shows how far from average a central interval must reach to include that share.</p>
+        <p>When data follow a normal distribution, about 68% falls within one standard deviation of the average and about 95% within two. This helps you understand spread and recognize values far from the average.</p>
+      </article>
+    </div>
+    <p class="guide-context"><strong>What your input means:</strong> This tool turns your fraction into a central area in a normal model. Entering 75 / 100 selects the middle 75%; it does not mean a score of 75 is above average or at the 75th percentile. Applying the model to real data requires knowing its average, spread, and whether a bell curve is a reasonable fit.</p>
+  </section>
 
   <div class="card">
     <table class="reference">

@@ -19,6 +19,7 @@ function update(){
     canvas.setAttribute('aria-label','Standard normal distribution. Enter valid inputs to shade a central area.');
     draw(NaN,NaN);
     updatePie(NaN);
+    updateExplanation(NaN,NaN);
     return;
   }
   const pct=a/b*100;
@@ -34,6 +35,29 @@ function update(){
   canvas.setAttribute('aria-label',`${pct.toFixed(2)}% central area of the standard normal distribution; boundary ${Number.isFinite(z)?z.toFixed(3):'infinite'} standard deviations on either side of the mean.`);
   draw(z,pct);
   updatePie(pct);
+  updateExplanation(pct,z);
+}
+function updateExplanation(pct,z){
+  const valid=Number.isFinite(pct);
+  const tail=valid?(100-pct)/2:0;
+  const summary=document.getElementById('reading-summary');
+  const boundary=document.getElementById('reading-boundary');
+  document.getElementById('strip-left').style.width=tail+'%';
+  document.getElementById('strip-center').style.width=(valid?pct:0)+'%';
+  document.getElementById('strip-right').style.width=tail+'%';
+  if(!valid){
+    summary.textContent='Enter a valid part and whole to see your percentage explained here.';
+    boundary.textContent='';
+    return;
+  }
+  summary.textContent=`Imagine 100 observations from a normal distribution. On average, about ${pct.toFixed(2)} would fall in the purple middle, with ${tail.toFixed(2)} below it and ${tail.toFixed(2)} above it. The pie combines those two tails into its ${(100-pct).toFixed(2)}% gray remainder.`;
+  if(pct===0){
+    boundary.textContent='At 0%, the boundaries meet at the average. The interval has no width and contains no area; each half of the bell holds 50%.';
+  } else if(pct===100){
+    boundary.textContent='At 100%, the purple area includes the entire distribution. A normal curve extends forever in both directions, so its boundaries are infinite. The chart shows only part of that full range.';
+  } else {
+    boundary.textContent=`To include the middle ${pct.toFixed(2)}%, extend ${z.toFixed(3)} standard deviations below and above the average. That is what ±${z.toFixed(3)}σ means. Increasing the percentage moves the boundaries outward to include more values.`;
+  }
 }
 function updatePie(pct){
   const pie=document.getElementById('pie');
