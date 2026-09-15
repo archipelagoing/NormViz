@@ -1,5 +1,5 @@
   :root { color-scheme: light; }
-  body { font-family: 'Lato', 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background:#f5f6f8; color:#171717; }
+  body { font-family: 'Manrope', 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; background:#f5f6f8; color:#171717; }
   input { font-family:inherit; }
   .wrap { max-width: 1050px; margin: 36px auto; padding: 0 20px; }
   .card { background:white; border-radius:18px; padding:24px; box-shadow:0 8px 30px rgba(0,0,0,.08); margin-bottom:18px; }
