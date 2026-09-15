@@ -1,39 +1,59 @@
 # NormViz
-Visualize any percentage on a bell curve and learn what its standard deviation and z-score tell you about how far it is from average.
-----------------------------------------
 
 **Statistics make more sense when you can actually see them.**
 
-NormViz turns percentages and fractions into an interactive bell curve so you can see what the numbers really mean. Enter something as simple as **75 out of 100**, and NormViz instantly shows where that 75% falls on a normal distribution, how far it reaches from the average, and how it compares with the familiar 68%, 95%, and 99.7% ranges.
+Explore the same percentage as a shaded bell curve and a pie chart. Enter **75 out of 100** to see how much of the whole it represents, how far the middle 75% of a normal distribution reaches from the average, and how it compares with the familiar 68%, 95%, and 99.7% ranges.
 
-Along the way, NormViz makes concepts like **standard deviation** and **z-scores** easier to understand. Standard deviation tells you how far values typically spread from the average, while a z-score tells you exactly how far a particular point is from that average in standard-deviation units.
+**[Try NormViz](https://archipelagoing.github.io/NormViz/)**
 
-Why does that matter? These ideas show up everywhere, from test scores and grades to research, measurements, probability, data science, and everyday comparisons. They help answer a simple question: **Is this result typical, or is it unusual?**
+<!-- Replace bell.png below with the path to your screenshot, and update the alt text and caption. -->
+![NormViz bell icon — placeholder for a site screenshot](bell.png)
 
-Instead of memorizing formulas or trying to imagine what “1.5 standard deviations from the mean” looks like, **see it for yourself with NormViz.**
+*Site screenshot coming soon; the bell icon is a temporary placeholder.*
+
+## What you can explore
+
+- **Two connected charts:** a bell curve and a pie chart styled as a sewing button, both updating as you type.
+- **A measuring-tape scale:** see distance from the average in standard-deviation units.
+- **Your results explained:** central percentage, boundaries, percentage in each tail, and the closest 68–95–99.7 reference.
+- **A visual area bar:** connect the purple middle and the two tails to shares of the whole.
+- **Plain-language guides:** learn what the curve’s shape tells you, how it complements a pie chart, and how to interpret percentages in daily life.
+
+## How to use it
+
+1. Enter a nonnegative **Part** and a positive **Whole**, with Part no greater than Whole.
+2. Compare the purple share of the pie with the purple area under the bell curve.
+3. Read the explanation below the charts, then change the fraction to see how the boundaries move.
+
+For **75 / 100**, the central area is **75%**, its boundaries are approximately **−1.150σ and +1.150σ**, and each tail contains **12.5%**. Here, σ means one standard deviation—a measure of spread around the average.
+
+Try **68 / 100**, **95 / 100**, and **99.7 / 100**. Notice how including more of the distribution moves the boundaries farther from the average.
+
+The charts and three-column guides stay side by side. On very narrow screens, scroll horizontally within those sections.
+
+## What the percentage means
+
+NormViz maps your fraction to a **symmetric central area of a standard normal distribution**. It does not calculate your percentile rank or the z-score of an observed score. Entering 75 / 100 selects the middle 75%; it does not establish whether a score of 75 is above average.
+
+Applying this model to real measurements requires knowing their average and spread, and checking whether a bell curve is a reasonable fit.
+
+At **0%**, the interval has zero width. At **100%**, its boundaries are infinite. The chart displays only **−3.6σ to +3.6σ**, so larger intervals extend beyond the visible range.
 
 ## Run locally
 
-Open `index.html` in your browser. No dependencies or build step are required.
-
-Enter a nonnegative **Part** and a positive **Whole**, with Part no greater than Whole. The shaded region is the symmetric central area of a standard normal distribution, not a percentile rank or a z-score inferred from observed data. For example, 75 / 100 corresponds to an area of 75% between approximately −1.150σ and +1.150σ.
-
-At 0%, the interval has zero width. At 100%, its boundaries are infinite. The chart shows only −3.6σ through +3.6σ.
-
-A pie chart beside the bell curve shows the same percentage as a portion of the whole, with the remainder in gray. Both charts update as you type and stay side by side; on very narrow screens, scroll horizontally within the chart section.
-
-A guide underneath explains the selected area, boundaries, and tails in plain language. Its summary and area strip update with your input, alongside an introduction to averages, standard deviations, and when a normal model is useful.
+Open `index.html` in your browser. No installation, external libraries, or build step is required. The site uses HTML, CSS, JavaScript, and the browser’s Canvas API.
 
 ## Project structure
 
 ```text
-normal-distribution-visualizer/
-├── index.html          # Page structure and inputs
+NormViz/
+├── index.html          # Page structure, inputs, and educational guides
+├── bell.png            # Favicon and temporary README image
 ├── css/
 │   └── style.css       # Styling and responsive layout
 ├── js/
 │   ├── statistics.js   # Normal density and inverse normal calculations
-│   └── visualizer.js   # Input validation, results, and canvas drawing
+│   └── visualizer.js   # Input validation, charts, and dynamic explanations
 ├── README.md
 ├── LICENSE
 └── .gitignore
