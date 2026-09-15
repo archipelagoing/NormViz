@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Normal Distribution Percent Explorer</title>
 <link rel="icon" type="image/png" href="bell.png">
-<link rel="stylesheet" href="css/style.css?v=guide-2">
+<link rel="stylesheet" href="css/style.css?v=original-font-2">
 </head>
 <body>
 <div class="wrap">
@@ -33,7 +33,12 @@
       </section>
       <section class="pie-panel" aria-labelledby="pie-title">
         <h2 id="pie-title">Part of the whole</h2>
-        <div id="pie" class="pie" role="img" aria-label="75.00% selected, 25.00% remaining"></div>
+        <div id="pie" class="pie" role="img" aria-label="75.00% selected, 25.00% remaining">
+          <span class="button-hole" aria-hidden="true"></span>
+          <span class="button-hole" aria-hidden="true"></span>
+          <span class="button-hole" aria-hidden="true"></span>
+          <span class="button-hole" aria-hidden="true"></span>
+        </div>
         <p class="pie-value" id="pie-percent">75.00%</p>
         <div class="pie-legend">
           <span><i class="dot selected-dot"></i>Selected <b id="pie-selected">75.00%</b></span>
@@ -118,6 +123,33 @@
     <p class="guide-context"><strong>Try it above:</strong> Compare 68 / 100 with 95 / 100, then 99.7 / 100. Watch the boundaries move farther from the average while the pie fills up. The bell curve’s shape stays the same—you’re choosing how much of its area to include. These percentages describe a normal model; a fraction alone cannot tell you whether real data follow that model.</p>
   </section>
 
+  <section class="card guide" aria-labelledby="daily-life-title">
+    <h2 id="daily-life-title">How can I use this in my daily life to interpret percentages?</h2>
+    <p class="guide-intro">Start with “a percentage of what?” It might describe a share you used, questions you answered correctly, or observations inside a range. Those are different stories, even when the number is the same.</p>
+    <div class="guide-grid" tabindex="0" role="region" aria-label="Three-column guide to everyday percentages; scroll horizontally on small screens">
+      <article>
+        <h3>Make a fraction easier to picture</h3>
+        <p>If you finish 6 of your 8 planned tasks, enter 6 as the part and 8 as the whole. The pie shows 75% complete and 25% remaining.</p>
+        <p><strong>Use the pie to understand a share.</strong> The bell shows what the middle 75% of a normal model looks like; it does not tell you whether your productivity is above average.</p>
+      </article>
+      <article>
+        <h3>Put a score in context</h3>
+        <p>Getting 80% on a quiz tells you how much you got right. It doesn’t tell you how you did compared with the class: the average might be 60% or 90%.</p>
+        <p><strong>Ask for the average and how spread out the scores are.</strong> If they roughly follow a bell curve, those details help locate your score. Entering 80 / 100 here selects the middle 80% of the model, not your position in the class.</p>
+      </article>
+      <article>
+        <h3>Understand what “usual” covers</h3>
+        <p>Suppose your walks to school average 20 minutes, with a standard deviation of 5 minutes, and roughly follow a bell curve. Enter 95 / 100: the boundary is about ±1.96σ, so the middle 95% spans roughly 10 to 30 minutes.</p>
+        <p><strong>Look at what’s left outside the range, too.</strong> About 2.5% would be shorter and 2.5% longer. That’s a model’s expectation over many walks, not a guarantee about your next one.</p>
+      </article>
+    </div>
+    <div class="reading">
+      <h3>A habit to take with you</h3>
+      <p>When you see a percentage, ask: <strong>What is the whole? What does the selected part represent? And what information would I need to compare it with what’s typical?</strong></p>
+      <p>Use this tool to picture the share first. Use the bell curve to explore a central range when a normal model makes sense for the data. A percentage by itself cannot establish that fit.</p>
+    </div>
+  </section>
+
   <div class="card">
     <table class="reference">
       <thead><tr><th>Normal range</th><th>Central percentage</th><th>Standard deviations</th></tr></thead>
@@ -132,6 +164,6 @@
 </div>
 
 <script src="js/statistics.js?v=guide-2" defer></script>
-<script src="js/visualizer.js?v=guide-2" defer></script>
+<script src="js/visualizer.js?v=original-font-2" defer></script>
 </body>
 </html>

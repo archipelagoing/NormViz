@@ -95,12 +95,18 @@ function draw(z,pct){
   for(let x=xmin;x<=xmax;x+=.02){ const xx=X(x),yy=Y(pdf(x)); x===xmin?ctx.moveTo(xx,yy):ctx.lineTo(xx,yy);}
   ctx.strokeStyle='#202124';ctx.lineWidth=2.5;ctx.stroke();
 
-  // axis + sigma markers
-  ctx.strokeStyle='#aaa';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(L,base);ctx.lineTo(W-R,base);ctx.stroke();
-  ctx.font='13px system-ui';ctx.textAlign='center';ctx.fillStyle='#444';
+  // Measuring tape: each small division is 0.1 standard deviations.
+  ctx.fillStyle='#fff0b8';ctx.fillRect(L,base,W-L-R,48);
+  ctx.strokeStyle='#b79b50';ctx.lineWidth=1;ctx.strokeRect(L,base,W-L-R,48);
+  for(let tick=-36;tick<=36;tick++){
+    const major=tick%10===0, half=tick%5===0;
+    const length=major?19:half?13:7;
+    ctx.strokeStyle=major?'#493b1d':'#9d874e';ctx.lineWidth=major?1.5:1;
+    ctx.beginPath();ctx.moveTo(X(tick/10),base);ctx.lineTo(X(tick/10),base+length);ctx.stroke();
+  }
+  ctx.font='bold 12px system-ui';ctx.textAlign='center';ctx.fillStyle='#493b1d';
   for(let i=-3;i<=3;i++){
-    ctx.beginPath();ctx.moveTo(X(i),base);ctx.lineTo(X(i),base+7);ctx.strokeStyle='#888';ctx.stroke();
-    ctx.fillText(i===0?'μ':(i>0?'+':'')+i+'σ',X(i),base+24);
+    ctx.fillText(i===0?'μ':(i>0?'+':'')+i+'σ',X(i),base+36);
   }
   // colored reference brackets/labels
   const rows=[{z:1,label:'68.3% • ±1σ',c:'#27865a',y:base+43},{z:2,label:'95.5% • ±2σ',c:'#b97812',y:base+43},{z:3,label:'99.7% • ±3σ',c:'#b54444',y:base+43}];
