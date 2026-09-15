@@ -7,7 +7,7 @@ Explore the same percentage as a shaded bell curve and a pie chart. Enter **75 o
 **[Try NormViz](https://archipelagoing.github.io/NormViz/)**
 
 
-![site screenshot](Screenshot.png)
+![NormViz bell curve and pie chart](screenshot.png)
 
 *Site screenshot*
 
@@ -48,7 +48,8 @@ Open `index.html` in your browser. No installation, external libraries, or build
 ```text
 NormViz/
 ├── index.html          # Page structure, inputs, and educational guides
-├── bell.png            # Favicon and temporary README image
+├── bell.png            # Favicon
+├── screenshot.png      # Site preview for this README
 ├── css/
 │   └── style.css       # Styling and responsive layout
 ├── js/
