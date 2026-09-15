@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Normal Distribution Percent Explorer</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <h1>Normal Distribution Percent Explorer</h1>
+    <div class="sub">Enter a part and a whole. The tool converts the fraction to a percentage and shows the equivalent central area of a normal distribution.</div>
+    <div class="inputs">
+      <div><label for="part">Part</label><input id="part" type="number" min="0" aria-describedby="input-error" value="75" step="any"></div>
+      <div class="operator">÷</div>
+      <div><label for="whole">Whole</label><input id="whole" type="number" min="0" aria-describedby="input-error" value="100" step="any"></div>
+      <div class="result" aria-live="polite">
+        <div class="big" id="pct">75.00%</div>
+        <div class="small" id="fraction">75 / 100</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <p id="input-error" class="error" role="alert" hidden></p>
+    <canvas id="curve" role="img" aria-label="Standard normal distribution with the selected central area shaded">Your browser must support canvas to display the bell curve. Numerical results are below.</canvas>
+    <div class="legend">
+      <span><i class="dot" style="background:#6d5dfc"></i>Your central percentage</span>
+      <span><i class="dot" style="background:#35a36f"></i>±1σ = 68.3%</span>
+      <span><i class="dot" style="background:#e09b2d"></i>±2σ = 95.5%</span>
+      <span><i class="dot" style="background:#d65c5c"></i>±3σ = 99.7%</span>
+    </div>
+    <div class="stats">
+      <div class="stat">Central area<b id="central">75.00%</b></div>
+      <div class="stat">Boundary<b id="zscore">±1.150σ</b></div>
+      <div class="stat">Each tail<b id="tail">12.50%</b></div>
+      <div class="stat">Closest reference<b id="closest">1σ (68.3%)</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <table class="reference">
+      <thead><tr><th>Normal range</th><th>Central percentage</th><th>Standard deviations</th></tr></thead>
+      <tbody>
+        <tr><td>μ ± 1σ</td><td>68.27% ≈ 68.3%</td><td>1 SD from mean</td></tr>
+        <tr><td>μ ± 2σ</td><td>95.45% ≈ 95.5%</td><td>2 SD from mean</td></tr>
+        <tr><td>μ ± 3σ</td><td>99.73% ≈ 99.7%</td><td>3 SD from mean</td></tr>
+      </tbody>
+    </table>
+    <p class="sub">The percentage represents a symmetric area around the mean, not a percentile rank. The chart displays −3.6σ to +3.6σ; larger boundaries extend beyond the visible range.</p>
+  </div>
+</div>
+
+<script src="js/statistics.js" defer></script>
+<script src="js/visualizer.js" defer></script>
+</body>
+</html>
