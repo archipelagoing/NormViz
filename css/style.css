@@ -44,6 +44,16 @@
   .selected-dot { background:#6d5dfc; }
   .remaining-dot { background:#e2e2e9; }
   .pie-note { font-size:13px; line-height:1.5; color:#666; }
+  .purple-text { color:#5b4be0; }
+  .curve-panel .stats { grid-template-columns:repeat(2,minmax(0,1fr)); margin-top:18px; }
+  .curve-panel .legend { gap:10px 16px; }
+  .clock-readouts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-bottom:18px; }
+  .clock-readouts .clock-readout { margin:0; }
+  .clock-explanation { margin-top:24px; padding-top:20px; border-top:1px solid #e2e2e2; }
+  .clock-explanation h3 { margin:0 0 10px; font-size:16px; text-align:left; }
+  .clock-explanation-copy { display:block; }
+  .clock-explanation .pie-note { margin:0; text-align:left; }
+  @media(max-width:700px) { .clock-explanation-copy { grid-template-columns:1fr; gap:12px; } }
   @media(max-width:800px) { .charts { gap:12px; } .pie-panel { padding-left:12px; } .pie-legend b { float:none; display:block; margin:3px 0 0 15px; } }
   .guide { line-height:1.65; }
   .guide h2 { margin:0 0 8px; font-size:24px; line-height:1.3; }

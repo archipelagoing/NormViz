@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&amp;display=swap">
-<link rel="stylesheet" href="css/style.css?v=clock-midpoint-1">
+<link rel="stylesheet" href="css/style.css?v=purple-text-1">
 </head>
 <body>
 <div class="wrap">
@@ -33,6 +33,18 @@
       <section class="curve-panel" aria-labelledby="curve-title">
         <h2 id="curve-title">Normal distribution</h2>
         <canvas id="curve" role="img" aria-label="Standard normal distribution with the selected central area shaded">Your browser must support canvas to display the bell curve. Numerical results are below.</canvas>
+    <div class="legend">
+      <span><i class="dot" style="background:#6d5dfc"></i>Your central percentage</span>
+      <span><i class="dot" style="background:#35a36f"></i>±1σ = 68.3%</span>
+      <span><i class="dot" style="background:#e09b2d"></i>±2σ = 95.5%</span>
+      <span><i class="dot" style="background:#d65c5c"></i>±3σ = 99.7%</span>
+    </div>
+    <div class="stats">
+      <div class="stat">Central area<b id="central">75.00%</b></div>
+      <div class="stat">Boundary<b id="zscore">±1.150σ</b></div>
+      <div class="stat">Each tail<b id="tail">12.50%</b></div>
+      <div class="stat">Closest reference<b id="closest">1σ (68.3%)</b></div>
+    </div>
       </section>
       <section class="pie-panel" aria-labelledby="pie-title">
         <h2 id="pie-title">Pie Chart (part of the whole)</h2>
@@ -47,28 +59,26 @@
           <span class="clock-seconds" aria-hidden="true"></span>
         </div>
         <p class="pie-value" id="pie-percent">75.00%</p>
+        <div class="clock-readouts">
         <p class="clock-readout">Boundary-hand time <strong id="clock-time" aria-live="polite">12:49:05</strong></p>
         <p class="clock-readout">Dotted hand’s seconds position <strong id="divider-seconds" aria-live="polite">56.59 s</strong></p>
+        </div>
         <div class="pie-legend">
           <span><i class="dot selected-dot"></i>Selected <b id="pie-selected">75.00%</b></span>
           <span><i class="dot remaining-dot"></i>Remaining <b id="pie-remaining">25.00%</b></span>
         </div>
-        <p class="pie-note">The purple area runs clockwise from the short hour hand to the long minute hand and matches your percentage. The dotted gray line halves the remainder.</p>
-        <p class="pie-note">Both boundary hands move at normal clock speeds, starting at <strong>12:00:00 at 0%</strong> and reaching approximately <strong>1:05:27 at 100%</strong>. <strong>The dotted gray line’s angle gives its seconds position: 6° equals one second.</strong> This separate reading describes where the divider points, not the seconds of the boundary-hand time. At 0%, the gray circle is split by a diameter; at 100%, no remainder or divider is shown. Only the displayed readings are rounded.</p>
+
+        <section class="clock-explanation" aria-labelledby="clock-explanation-title">
+          <h3 id="clock-explanation-title">Reading the clock</h3>
+        <p class="pie-note">The <strong class="purple-text">purple area runs clockwise</strong> from the short hour hand to the long minute hand and <strong class="purple-text">matches your percentage.</strong> The <strong>dotted gray line</strong>, styled as a seconds hand, <strong>divides the remaining area into two equal parts</strong>—one for each tail of the normal distribution.</p>
+        </section>
       </section>
     </div>
     </div>
-    <div class="legend">
-      <span><i class="dot" style="background:#6d5dfc"></i>Your central percentage</span>
-      <span><i class="dot" style="background:#35a36f"></i>±1σ = 68.3%</span>
-      <span><i class="dot" style="background:#e09b2d"></i>±2σ = 95.5%</span>
-      <span><i class="dot" style="background:#d65c5c"></i>±3σ = 99.7%</span>
-    </div>
-    <div class="stats">
-      <div class="stat">Central area<b id="central">75.00%</b></div>
-      <div class="stat">Boundary<b id="zscore">±1.150σ</b></div>
-      <div class="stat">Each tail<b id="tail">12.50%</b></div>
-      <div class="stat">Closest reference<b id="closest">1σ (68.3%)</b></div>
+    <div class="clock-explanation">
+      <div class="clock-explanation-copy">
+        <p class="pie-note">Both boundary hands move at normal clock speeds, starting at <strong>12:00:00 at 0%</strong> and reaching approximately <strong>1:05:27 at 100%</strong>. <strong>The dotted gray line’s angle gives its seconds position: 6° equals one second.</strong> This separate reading describes where the divider points, not the seconds of the boundary-hand time. At 0%, the gray circle is split by a diameter; at 100%, no remainder or divider is shown. Only the displayed readings are rounded.</p>
+      </div>
     </div>
   </div>
 
